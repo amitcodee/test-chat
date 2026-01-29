@@ -1,0 +1,157 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "CORS",
+        "importPath": "flask_cors",
+        "description": "flask_cors",
+        "isExtraImport": true,
+        "detail": "flask_cors",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "markdown",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "markdown",
+        "description": "markdown",
+        "detail": "markdown",
+        "documentation": {}
+    },
+    {
+        "label": "Nl2BrExtension",
+        "importPath": "markdown.extensions.nl2br",
+        "description": "markdown.extensions.nl2br",
+        "isExtraImport": true,
+        "detail": "markdown.extensions.nl2br",
+        "documentation": {}
+    },
+    {
+        "label": "get_chat_response",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_chat_response(user_message, session_id='default'):\n    if session_id not in chat_histories:\n        chat_histories[session_id] = []\n    # Build the prompt with knowledge base\n    system_content = SYSTEM_PROMPT.format(knowledge_base=KNOWLEDGE_BASE)\n    messages = [\n        {\"role\": \"system\", \"content\": system_content},\n    ]\n    # Add previous messages from this session\n    messages.extend(chat_histories[session_id])",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def chat():\n    data = request.json\n    user_message = data.get('message', '')\n    session_id = data.get('session_id', 'default')\n    if not user_message:\n        return jsonify({'error': 'No message provided'}), 400\n    # response = get_chat_response(user_message, session_id)\n    # Get response from chatbot (this is in Markdown format)\n    markdown_response = get_chat_response(user_message, session_id)\n    # Convert Markdown to HTML automatically",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "clear_chat",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def clear_chat():\n    data = request.json\n    session_id = data.get('session_id', 'default')\n    if session_id in chat_histories:\n        chat_histories[session_id] = []\n    return jsonify({'success': True, 'message': 'Chat history cleared'})\n@app.route('/widget')\ndef widget():\n    \"\"\"Serve the chat widget as a standalone page\"\"\"\n    return render_template('widget.html')",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "widget",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def widget():\n    \"\"\"Serve the chat widget as a standalone page\"\"\"\n    return render_template('widget.html')\n@app.route('/widget-embed')\ndef widget_embed():\n    \"\"\"Widget embed code for other websites\"\"\"\n    return '''\n    <!-- TechCADD Chat Widget -->\n    <div id=\"techcadd-chat-widget\"></div>\n    <script>",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "widget_embed",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def widget_embed():\n    \"\"\"Widget embed code for other websites\"\"\"\n    return '''\n    <!-- TechCADD Chat Widget -->\n    <div id=\"techcadd-chat-widget\"></div>\n    <script>\n        (function() {\n            var d = document, s = d.createElement('script');\n            s.src = 'https://chatbott.techcadd.com/static/widget.js';  // Your widget JS\n            s.async = true;",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\nCORS(app)\n# Initialize OpenAI client\nclient = OpenAI(\n    api_key=\"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\",\n    base_url=\"https://api.groq.com/openai/v1\",\n)\nKNOWLEDGE_BASE = \"\"\"\n============================================================\n           TECHCADD COMPUTER EDUCATION - COURSE STRUCTURE",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "client = OpenAI(\n    api_key=\"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\",\n    base_url=\"https://api.groq.com/openai/v1\",\n)\nKNOWLEDGE_BASE = \"\"\"\n============================================================\n           TECHCADD COMPUTER EDUCATION - COURSE STRUCTURE\n    Best Training Institute in Jalandhar, Punjab (11+ Years Experience)\n      ISO 9001:2015 Certified & MSME Registered Institution\n============================================================",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "KNOWLEDGE_BASE",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "KNOWLEDGE_BASE = \"\"\"\n============================================================\n           TECHCADD COMPUTER EDUCATION - COURSE STRUCTURE\n    Best Training Institute in Jalandhar, Punjab (11+ Years Experience)\n      ISO 9001:2015 Certified & MSME Registered Institution\n============================================================\n--- INSTITUTE OVERVIEW ---\nTECHCADD is the Best Training Institute in Jalandhar, Punjab with 11+ years of IT training experience.\nWe offer:\n- Practical hands-on training",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "SYSTEM_PROMPT",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "SYSTEM_PROMPT = \"\"\"\nYou are TECHCADD, an AI admission counselor for TECHCADD Computer Education Institute.\nYou are friendly, professional, and helpful.\nUSE THIS KNOWLEDGE BASE:\n{knowledge_base}\nRESPONSE GUIDELINES:\n1. ALWAYS mention: \"ISO 9001:2015 Certified, MSME Registered, Government Approved Institute\"\n2. For course queries: Provide duration, fees, what you learn, projects\n3. For admissions: Explain process, documents, payment options, batch timings\n4. For certification: Mention QR code scanning, online verification, international validity",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "chat_histories",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "chat_histories = {}\ndef get_chat_response(user_message, session_id='default'):\n    if session_id not in chat_histories:\n        chat_histories[session_id] = []\n    # Build the prompt with knowledge base\n    system_content = SYSTEM_PROMPT.format(knowledge_base=KNOWLEDGE_BASE)\n    messages = [\n        {\"role\": \"system\", \"content\": system_content},\n    ]\n    # Add previous messages from this session",
+        "detail": "app",
+        "documentation": {}
+    }
+]
